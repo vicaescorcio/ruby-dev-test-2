@@ -17,4 +17,13 @@ class AlbumTest < ActiveSupport::TestCase
     assert_not album.valid?
     assert_not_empty album.errors[:player]
   end
+
+  test "should have many players through Records" do 
+    album = albums(:fixation1) 
+    play1 = players(:shakira)
+    play2 = players(:beyonce)
+    record = Record.create player:play1, album: album
+    record = Record.create player:play2, album: album
+    assert album.players
+  end
 end
